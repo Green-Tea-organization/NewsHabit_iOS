@@ -28,4 +28,6 @@ public struct UserSettingsRepository: UserSettingsRepositoryProtocol {
     
     @UserDefaultsData(key: "notificationTime", defaultValue: Date())
     public var notificationTime: Date
+    
+    public init() {}
 }
