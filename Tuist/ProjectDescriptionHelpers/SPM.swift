@@ -12,6 +12,7 @@ extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
+    static let RealmSwift = Self.package(product: "RealmSwift")
     static let SnapKit = Self.package(product: "SnapKit")
 
     private static func external(_ name: String) -> TargetDependency {

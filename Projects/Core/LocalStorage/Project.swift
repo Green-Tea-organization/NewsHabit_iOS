@@ -22,7 +22,8 @@ let targets: [Target] = [
         implements: .LocalStorage,
         factory: .init(
             dependencies: [
-                .core(interface: .LocalStorage)
+                .core(interface: .LocalStorage),
+                .SPM.RealmSwift
             ]
         )
     ),
@@ -47,5 +48,11 @@ let targets: [Target] = [
 
 let project = Project.makeModule(
     name: ModulePath.Core.LocalStorage.rawValue,
+    packages: [
+        .remote(
+            url: "https://github.com/realm/realm-swift",
+            requirement: .upToNextMajor(from: "10.25.0")
+        )
+    ],
     targets: targets
 )

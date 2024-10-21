@@ -9,6 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    let navigationController = UINavigationController()
 
     func scene(
         _ scene: UIScene,
@@ -26,6 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate: SplashDelegate {
     func didFinish() {
-        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
+        navigationController.navigationBar.isHidden = true
+        navigationController.pushViewController(TabBarController(), animated: false)
+        window?.rootViewController = navigationController
     }
 }

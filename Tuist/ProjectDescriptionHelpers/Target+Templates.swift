@@ -239,7 +239,7 @@ public extension Target {
 
     static func core(implements module: ModulePath.Core, factory: TargetFactory) -> Self {
         var newFactory = factory
-        newFactory.product = .staticFramework
+        newFactory.product = .framework
         newFactory.name = ModulePath.Core.name + module.rawValue
         newFactory.sources = .sources
 

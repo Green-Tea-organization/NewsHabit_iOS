@@ -21,7 +21,7 @@ final class SplashViewController: UIViewController {
     
     private let logoBeltImageView = {
         let imageView = UIImageView()
-        imageView.image = Images.logoBelt
+        imageView.image = Images.logo
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

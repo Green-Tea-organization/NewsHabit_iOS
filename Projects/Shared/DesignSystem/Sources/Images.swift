@@ -20,7 +20,7 @@ public struct Images {
     public static let heart = SharedDesignSystemAsset.Images.heart.image
     public static let homeActive = SharedDesignSystemAsset.Images.homeActive.image
     public static let homeInactive = SharedDesignSystemAsset.Images.homeInactive.image
-    public static let logoBelt = SharedDesignSystemAsset.Images.logoBelt.image
+    public static let logo = SharedDesignSystemAsset.Images.logo.image
     public static let newsActive = SharedDesignSystemAsset.Images.newsActive.image
     public static let newsInactive = SharedDesignSystemAsset.Images.newsInactive.image
     public static let refresh = SharedDesignSystemAsset.Images.refresh.image
