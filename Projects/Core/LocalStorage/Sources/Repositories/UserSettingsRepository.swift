@@ -7,6 +7,7 @@
 
 import Foundation
 
+import RealmSwift
 import CoreLocalStorageInterface
 import Shared
 
