@@ -1,5 +1,5 @@
 //
-//  DailyNewsRepository.swift
+//  BookmarkRepository.swift
 //  CoreLocalStorage
 //
 //  Created by 지연 on 10/22/24.
@@ -11,15 +11,15 @@ import CoreLocalStorageInterface
 import RealmSwift
 import Shared
 
-public final class DailyNewsRepository: DailyNewsRepositoryProtocol {
+public final class BookmarkRepository: BookmarkRepositoryProtocol {
     private let realm: Realm
     
     public init() {
         do {
             let configuration = Realm.Configuration(
-                fileURL: FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+                fileURL: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                     .first!
-                    .appendingPathComponent("caching.realm")
+                    .appendingPathComponent("persistent.realm")
             )
             realm = try Realm(configuration: configuration)
         } catch {
@@ -27,46 +27,42 @@ public final class DailyNewsRepository: DailyNewsRepositoryProtocol {
         }
     }
     
-    public func fetchDailyNews() -> [NewsItem] {
+    public func fetchBookmarkedNews() -> [SharedUtil.NewsItem] {
         let newsEntities = realm.objects(NewsEntity.self)
         let newsItems = Array(newsEntities).map { $0.toDomain() }
         return newsItems
     }
     
-    public func updateDailyNews(_ items: [NewsItem]) throws {
-        try deleteDailyNews()
-        try saveDailyNews(items)
-    }
-    
-    public func updateNewsItem(_ item: NewsItem) throws {
+    public func saveNewsItem(_ item: SharedUtil.NewsItem) throws {
         do {
             try realm.write {
                 let newsEntity = NewsEntity(item)
                 realm.add(newsEntity, update: .modified)
             }
         } catch {
-            throw RealmError.failedToUpdate
+            throw RealmError.failedToSave
         }
     }
     
-    private func deleteDailyNews() throws {
+    public func deleteNewsItem(with id: UUID) throws {
+        guard let newsEntity = realm.object(ofType: NewsEntity.self, forPrimaryKey: id) else {
+            throw RealmError.itemNotFound
+        }
+        
         do {
             try realm.write {
-                realm.deleteAll()
+                realm.delete(newsEntity)
             }
         } catch {
             throw RealmError.failedToDelete
         }
     }
     
-    private func saveDailyNews(_ items: [NewsItem]) throws {
-        do {
-            try realm.write {
-                let newsEntities = items.map { NewsEntity($0) }
-                realm.add(newsEntities)
-            }
-        } catch {
-            throw RealmError.failedToSave
+    public func isNewsItemBookmarked(with id: UUID) -> Bool {
+        if let _ = realm.object(ofType: NewsEntity.self, forPrimaryKey: id) {
+            return true
+        } else {
+            return false
         }
     }
 }

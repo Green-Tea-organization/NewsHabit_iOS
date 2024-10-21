@@ -11,6 +11,6 @@ import Shared
 
 public protocol DailyNewsRepositoryProtocol {
     func fetchDailyNews() -> [NewsItem]
-    func saveDailyNews(_ items: [NewsItem]) throws
+    func updateDailyNews(_ items: [NewsItem]) throws
     func updateNewsItem(_ item: NewsItem) throws
 }
