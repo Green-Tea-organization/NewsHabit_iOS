@@ -35,6 +35,7 @@ public final class NameViewController: ViewController<NameView> {
         setupNormalNavigationBar(rightTitle: "다음", isBackButtonHidden: true)
         rightButton?.isEnabled = false
         setupBindings()
+        nameTextField.textField.becomeFirstResponder()
     }
     
     // MARK: - Setup Methods

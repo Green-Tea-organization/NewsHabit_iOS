@@ -69,6 +69,7 @@ public final class CategoryViewModel: ViewModel {
                 .filter { $0.isSelected }
                 .map { $0.category }
             userSettingsRepository.categories = selectedCategories
+            print("✅ 카테고리 저장 완료 : \(userSettingsRepository.categories)")
         }
     }
     
