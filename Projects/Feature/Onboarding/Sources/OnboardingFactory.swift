@@ -17,7 +17,8 @@ public final class OnboardingFactory {
     }
     
     public func makeNameViewController() -> NameViewController {
-        return NameViewController()
+        let viewModel = NameViewModel(userSettingsRepository: userSettingsRepository)
+        return NameViewController(viewModel: viewModel)
     }
     
     public func makeCategoryViewController() -> CategoryViewController {

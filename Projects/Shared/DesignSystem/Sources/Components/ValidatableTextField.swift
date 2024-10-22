@@ -12,12 +12,12 @@ import SharedUtil
 import SnapKit
 
 public final class ValidatableTextField: UIView {
-    private let isValidSubject = CurrentValueSubject<Bool, Never>(false)
-    public var isValidPublisher: AnyPublisher<Bool, Never> {
-        isValidSubject.eraseToAnyPublisher()
+    private let textSubject = CurrentValueSubject<String, Never>("")
+    
+    public var textPublisher: AnyPublisher<String, Never> {
+        textSubject.eraseToAnyPublisher()
     }
     
-    private let validator: TextValidator
     private let maxLength: Int
     private var cancellables = Set<AnyCancellable>()
     
@@ -30,9 +30,8 @@ public final class ValidatableTextField: UIView {
     
     // MARK: - Init
     
-    public init(placeholder: String, validator: TextValidator) {
-        self.validator = validator
-        self.maxLength = Constants.maxNameLength
+    public init(placeholder: String, maxLength: Int = Constants.maxNameLength) {
+        self.maxLength = maxLength
         
         super.init(frame: .zero)
         
@@ -77,28 +76,31 @@ public final class ValidatableTextField: UIView {
     private func setupTextField(with placeholder: String) {
         textField.placeholder = placeholder
         textField.textPublisher
-            .dropFirst()
             .sink { [weak self] text in
                 guard let self = self else { return }
-                validateAndUpdateUI(text)
+                self.textSubject.send(text)
+                self.updateCharacterCount(text)
             }
             .store(in: &cancellables)
     }
     
-    private func validateAndUpdateUI(_ text: String) {
-        if let errorMessage = validator.validate(text) {
-            line.backgroundColor = Colors.alertWarning
-            captionLabel.text = errorMessage
-            captionLabel.isHidden = false
-            isValidSubject.send(false)
-        } else {
-            line.backgroundColor = Colors.gray02
-            captionLabel.isHidden = true
-            isValidSubject.send(true)
-        }
-        
+    private func updateCharacterCount(_ text: String) {
         indicatorLabel.text = "\(text.count)/\(maxLength)"
-        indicatorLabel.textColor = text.count > maxLength ? Colors.alertWarning : Colors.gray02
+        indicatorLabel.textColor = text.count > maxLength ?
+            Colors.alertWarning : Colors.gray02
+    }
+    
+    // MARK: - Public Methods
+    
+    public func updateValidation(isValid: Bool, errorMessage: String?) {
+        line.backgroundColor = isValid ? Colors.gray02 : Colors.alertWarning
+        captionLabel.text = errorMessage
+        captionLabel.isHidden = errorMessage == nil
+    }
+    
+    public func updateText(_ text: String) {
+        textField.text = text
+        updateCharacterCount(text)
     }
 }
 
