@@ -27,7 +27,8 @@ public final class SettingsFactory {
     }
     
     public func makeNewsCountViewController() -> NewsCountViewController {
-        return NewsCountViewController()
+        let viewModel = NewsCountViewModel(userSettingsRepository: userSettingsRepository)
+        return NewsCountViewController(viewModel: viewModel)
     }
     
     public func makeNotificationViewController() -> NotificationViewController {

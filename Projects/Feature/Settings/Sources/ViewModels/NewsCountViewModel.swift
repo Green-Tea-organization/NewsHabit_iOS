@@ -66,6 +66,7 @@ public final class NewsCountViewModel: ViewModel {
                 .first(where: { $0.isSelected })!
                 .newsCount
             userSettingsRepository.newsCount = selectedNewsCount
+            print("✅ 기사 개수 저장 완료 : \(userSettingsRepository.newsCount)")
         }
     }
     

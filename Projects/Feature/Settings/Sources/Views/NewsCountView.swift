@@ -30,7 +30,7 @@ public final class NewsCountView: UIView {
         return collectionView
     }()
     
-    let saveButton = SaveButton()
+    let saveButton = SaveButton(initialEnabled: true)
     
     // MARK: - Init
     
