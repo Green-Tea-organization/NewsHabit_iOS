@@ -8,6 +8,10 @@
 import UIKit
 
 extension UIViewController {
+    public var tabBarHeight: CGFloat {
+        tabBarController?.tabBar.frame.height ?? 0
+    }
+    
     public func navigate(to viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }

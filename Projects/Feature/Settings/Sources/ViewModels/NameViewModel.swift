@@ -80,6 +80,7 @@ public final class NameViewModel: ViewModel {
             )
         case .saveUsername:
             userSettingsRepository.username = state.username.value
+            print("✅ 사용자 이름 저장 완료 : \(userSettingsRepository.username)")
         }
     }
 }

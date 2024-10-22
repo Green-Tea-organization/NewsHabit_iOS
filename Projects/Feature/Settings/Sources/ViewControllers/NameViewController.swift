@@ -53,6 +53,17 @@ public final class NameViewController: ViewController<NameView> {
             }
             .store(in: &cancellables)
         
+        keyboardWillShowPublisher
+            .sink { [weak self] keyboardHeight in
+                self?.adjustSaveButtonPosition(keyboardHeight: keyboardHeight)
+            }.store(in: &cancellables)
+        
+        keyboardWillHidePublisher
+            .sink { [weak self] _ in
+                self?.resetSaveButtonPosition()
+            }.store(in: &cancellables)
+        
+        // State
         viewModel.state.validState
             .sink { [weak self] state in
                 self?.nameTextField.updateValidation(
@@ -67,6 +78,21 @@ public final class NameViewController: ViewController<NameView> {
     private func setupTextField() {
         nameTextField.textField.text = viewModel.state.username.value
         nameTextField.textField.becomeFirstResponder()
+    }
+    
+    private func adjustSaveButtonPosition(keyboardHeight: CGFloat) {
+        UIView.animate(withDuration: 0.35) {
+            self.saveButton.transform = CGAffineTransform(
+                translationX: 0,
+                y: self.tabBarHeight - keyboardHeight
+            )
+        }
+    }
+    
+    private func resetSaveButtonPosition() {
+        UIView.animate(withDuration: 0.35) {
+            self.saveButton.transform = .identity
+        }
     }
 }
 
