@@ -24,7 +24,6 @@ public final class CategoryViewController: ViewController<CategoryView> {
     
     private func setupCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
     }
 }
 
@@ -35,24 +34,6 @@ extension CategoryViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(width: (collectionView.frame.width - 10) / 2, height: 52)
-    }
-}
-
-extension CategoryViewController: UICollectionViewDataSource {
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return categories.count
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: CategoryCell.self)
-        cell.configure(with: categories[indexPath.row])
-        return cell
     }
 }
 

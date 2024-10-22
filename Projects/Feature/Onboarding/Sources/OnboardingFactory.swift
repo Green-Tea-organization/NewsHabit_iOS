@@ -22,7 +22,8 @@ public final class OnboardingFactory {
     }
     
     public func makeCategoryViewController() -> CategoryViewController {
-        return CategoryViewController()
+        let viewModel = CategoryViewModel(userSettingsRepository: userSettingsRepository)
+        return CategoryViewController(viewModel: viewModel)
     }
     
     public func makeNewsCountViewController() -> NewsCountViewController {
