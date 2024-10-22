@@ -26,10 +26,22 @@ public final class NameViewController: ViewController<NameView> {
     // MARK: - Setup Methods
     
     private func setupBindings() {
+        nameTextField.isValidPublisher
+            .sink { [weak self] isValid in
+                self?.rightButton?.isEnabled = isValid
+            }
+            .store(in: &cancellables)
+        
         rightButton?.tapPublisher
             .sink { [weak self] in
                 self?.delegate?.nameViewControllerDidFinish()
             }
             .store(in: &cancellables)
+    }
+}
+
+private extension NameViewController {
+    var nameTextField: ValidatableTextField {
+        contentView.textFieldView
     }
 }

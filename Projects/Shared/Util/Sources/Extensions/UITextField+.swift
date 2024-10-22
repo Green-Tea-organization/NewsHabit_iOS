@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 extension UITextField {
-    public var textDidChangePublisher: AnyPublisher<String, Never> {
+    public var textPublisher: AnyPublisher<String, Never> {
         Publishers.Merge(
             // UITextField의 text 속성에 대한 KVO Publisher를 생성하여 외부에서의 텍스트 변경 감지
             publisher(for: \.text).compactMap { $0 },

@@ -12,6 +12,11 @@ import SharedUtil
 import SnapKit
 
 public final class ValidatableTextField: UIView {
+    private let isValidSubject = CurrentValueSubject<Bool, Never>(false)
+    public var isValidPublisher: AnyPublisher<Bool, Never> {
+        isValidSubject.eraseToAnyPublisher()
+    }
+    
     private let validator: TextValidator
     private let maxLength: Int
     private var cancellables = Set<AnyCancellable>()
@@ -71,7 +76,7 @@ public final class ValidatableTextField: UIView {
     
     private func setupTextField(with placeholder: String) {
         textField.placeholder = placeholder
-        textField.textDidChangePublisher
+        textField.textPublisher
             .dropFirst()
             .sink { [weak self] text in
                 guard let self = self else { return }
@@ -85,9 +90,11 @@ public final class ValidatableTextField: UIView {
             line.backgroundColor = Colors.alertWarning
             captionLabel.text = errorMessage
             captionLabel.isHidden = false
+            isValidSubject.send(false)
         } else {
             line.backgroundColor = Colors.gray02
             captionLabel.isHidden = true
+            isValidSubject.send(true)
         }
         
         indicatorLabel.text = "\(text.count)/\(maxLength)"
