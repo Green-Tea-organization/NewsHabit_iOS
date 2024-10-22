@@ -35,7 +35,7 @@ public final class NewsCountViewModel: ViewModel {
     
     // MARK: - Init
     
-    init(userSettingsRepository: UserSettingsRepositoryProtocol) {
+    public init(userSettingsRepository: UserSettingsRepositoryProtocol) {
         self.userSettingsRepository = userSettingsRepository
         
         let selectedNewsCount = userSettingsRepository.newsCount

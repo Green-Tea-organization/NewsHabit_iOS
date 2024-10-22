@@ -27,6 +27,7 @@ public final class MainFactory {
     
     public func makeSettingsViewController() -> SettingsViewController {
         let factory = SettingsFactory(userSettingsRepository: userSettingsRepository)
-        return SettingsViewController(factory: factory)
+        let viewModel = SettingsViewModel(userSettingsRepository: userSettingsRepository)
+        return SettingsViewController(factory: factory, viewModel: viewModel)
     }
 }

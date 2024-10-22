@@ -19,4 +19,10 @@ extension Date {
         dateFormatter.dateFormat = "yyyy년 M월"
         return dateFormatter.string(from: self)
     }
+
+    public func formatAsTimeWithPeriod() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        return dateFormatter.string(from: self)
+    }
 }

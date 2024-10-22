@@ -43,7 +43,7 @@ public final class NameViewModel: ViewModel {
     
     // MARK: - Init
     
-    init(
+    public init(
         userSettingsRepository: UserSettingsRepositoryProtocol,
         validator: TextValidator = NameValidator()
     ) {

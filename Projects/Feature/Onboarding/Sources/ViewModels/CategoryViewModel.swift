@@ -37,7 +37,7 @@ public final class CategoryViewModel: ViewModel {
     
     // MARK: - Init
     
-    init(userSettingsRepository: UserSettingsRepositoryProtocol) {
+    public init(userSettingsRepository: UserSettingsRepositoryProtocol) {
         self.userSettingsRepository = userSettingsRepository
         
         let selectedCategories = userSettingsRepository.categories

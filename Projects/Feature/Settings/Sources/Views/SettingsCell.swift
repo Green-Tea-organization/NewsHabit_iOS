@@ -79,9 +79,10 @@ final class SettingsCell: UICollectionViewCell, Reusable {
     
     // MARK: - Configure
     
-    func configure(with type: SettingsType) {
-        titleLabel.text = type.title
-        if type.mode == .none {
+    func configure(with viewModel: SettingsCellViewModel) {
+        titleLabel.text = viewModel.title
+        descriptionLabel.text = viewModel.description
+        if viewModel.mode == .none {
             chevronImageView.isHidden = true
         }
     }
