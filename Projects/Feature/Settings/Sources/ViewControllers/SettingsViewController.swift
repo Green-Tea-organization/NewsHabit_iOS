@@ -15,6 +15,20 @@ public final class SettingsViewController:ViewController<SettingsView> {
         [.developer, .reset]
     ]
     
+    private let factory: SettingsFactory
+    
+    // MARK: - Init
+    
+    public init(factory: SettingsFactory) {
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     public override func viewDidLoad() {
@@ -38,14 +52,11 @@ extension SettingsViewController: UICollectionViewDelegateFlowLayout {
     ) {
         let settingType = settings[indexPath.section][indexPath.row]
         switch settingType {
-        case .name:         navigate(to: NameViewController())
-        case .category:     navigate(to: CategoryViewController())
-        case .newsCount:    navigate(to: NewsCountViewController())
-        case .notification: navigate(to: NotificationViewController())
-        case .developer:
-            let viewController = WebViewController()
-            viewController.setupToolBar(isBookmarkButtonHidden: true)
-            navigateWithTab(to: viewController)
+        case .name:         navigate(to: factory.makeNameViewController())
+        case .category:     navigate(to: factory.makeCategoryViewController())
+        case .newsCount:    navigate(to: factory.makeNewsCountViewController())
+        case .notification: navigate(to: factory.makeNotificationViewController())
+        case .developer:    print("developer")
         case .reset:        print("reset")
         }
     }

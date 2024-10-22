@@ -33,6 +33,20 @@ final class TabBarController: UITabBarController {
         }
     }
     
+    private let factory: MainFactory
+    
+    // MARK: - Init
+    
+    public init(factory: MainFactory) {
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     public override func viewDidLoad() {
@@ -51,9 +65,9 @@ final class TabBarController: UITabBarController {
             let viewController: UIViewController
             
             switch tab {
-            case .home:     viewController = HomeViewController()
-            case .hot:      viewController = HotViewController()
-            case .settings: viewController = SettingsViewController()
+            case .home:     viewController = factory.makeHomeViewController()
+            case .hot:      viewController = factory.makeHotViewController()
+            case .settings: viewController = factory.makeSettingsViewController()
             }
             
             viewController.tabBarItem = UITabBarItem(

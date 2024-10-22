@@ -38,7 +38,7 @@ public struct TargetFactory {
     public init(
         name: String = "",
         destinations: Destinations = [.iPhone],
-        product: Product = .staticLibrary,
+        product: Product = .framework,
         productName: String? = nil,
         bundleId: String? = nil,
         deploymentTargets: DeploymentTargets? = Project.Environment.deploymentTargets,
@@ -239,7 +239,7 @@ public extension Target {
 
     static func core(implements module: ModulePath.Core, factory: TargetFactory) -> Self {
         var newFactory = factory
-        newFactory.product = .framework
+        newFactory.product = .staticFramework
         newFactory.name = ModulePath.Core.name + module.rawValue
         newFactory.sources = .sources
 

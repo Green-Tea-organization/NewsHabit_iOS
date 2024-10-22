@@ -1,8 +1,8 @@
 //
 //  CategoryViewModel.swift
-//  FeatureOnboarding
+//  FeatureSettings
 //
-//  Created by 지연 on 10/22/24.
+//  Created by 지연 on 10/23/24.
 //
 
 import Combine

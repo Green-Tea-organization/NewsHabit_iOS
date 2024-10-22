@@ -24,7 +24,6 @@ public final class NewsCountViewController: ViewController<NewsCountView> {
     
     private func setupCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
     }
 }
 
@@ -35,24 +34,6 @@ extension NewsCountViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 52)
-    }
-}
-
-extension NewsCountViewController: UICollectionViewDataSource {
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return newsCounts.count
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: NewsCountCell.self)
-        cell.configure(with: newsCounts[indexPath.row])
-        return cell
     }
 }
 

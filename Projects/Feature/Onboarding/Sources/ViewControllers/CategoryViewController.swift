@@ -84,7 +84,7 @@ public final class CategoryViewController: ViewController<CategoryView> {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CategoryCellViewModel>()
         snapshot.appendSections([0])
         snapshot.appendItems(categories, toSection: 0)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 

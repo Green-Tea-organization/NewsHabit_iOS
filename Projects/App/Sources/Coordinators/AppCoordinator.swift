@@ -13,11 +13,10 @@ import Shared
 
 public final class AppCoordinator: Coordinator {
     private let window: UIWindow
-    
-    private let userSettingsRepository: UserSettingsRepositoryProtocol
-    
     private var onboardingCoordinator: OnboardingCoordinator?
-//    private var mainCoordinator: MainCoordinator?
+    private var mainCoordinator: MainCoordinator?
+    
+    private var userSettingsRepository: UserSettingsRepositoryProtocol
 
     public init(window: UIWindow) {
         self.window = window
@@ -45,10 +44,15 @@ public final class AppCoordinator: Coordinator {
     }
 
     private func showMain() {
-        print("완료")
-//        let mainCoordinator = MainCoordinator(window: window)
-//        mainCoordinator.start()
-//        self.mainCoordinator = mainCoordinator
+        userSettingsRepository.onboardingCompleted = true
+        print("✅ 온보딩 완료")
+        print("사용자 이름 : \(userSettingsRepository.username)")
+        print("카테고리 : \(userSettingsRepository.categories)")
+        print("기사 개수 : \(userSettingsRepository.newsCount)")
+        let factory = MainFactory(userSettingsRepository: userSettingsRepository)
+        let mainCoordinator = MainCoordinator(window: window, factory: factory)
+        mainCoordinator.start()
+        self.mainCoordinator = mainCoordinator
     }
 }
 

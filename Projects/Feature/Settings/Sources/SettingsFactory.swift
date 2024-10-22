@@ -1,15 +1,15 @@
 //
-//  OnboardingFactory.swift
-//  FeatureOnboarding
+//  SettingsFactory.swift
+//  FeatureSettings
 //
-//  Created by 지연 on 10/22/24.
+//  Created by 지연 on 10/23/24.
 //
 
 import UIKit
 
 import Core
 
-public final class OnboardingFactory {
+public final class SettingsFactory {
     private let userSettingsRepository: UserSettingsRepositoryProtocol
     
     public init(userSettingsRepository: UserSettingsRepositoryProtocol) {
@@ -22,13 +22,14 @@ public final class OnboardingFactory {
     }
     
     public func makeCategoryViewController() -> CategoryViewController {
-        let viewModel = CategoryViewModel(userSettingsRepository: userSettingsRepository)
-        return CategoryViewController(viewModel: viewModel)
+        return CategoryViewController()
     }
     
     public func makeNewsCountViewController() -> NewsCountViewController {
-        let viewModel = NewsCountViewModel(userSettingsRepository: userSettingsRepository)
-        return NewsCountViewController(viewModel: viewModel)
+        return NewsCountViewController()
+    }
+    
+    public func makeNotificationViewController() -> NotificationViewController {
+        return NotificationViewController()
     }
 }
-
