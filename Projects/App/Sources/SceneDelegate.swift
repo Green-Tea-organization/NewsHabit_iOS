@@ -9,7 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let navigationController = UINavigationController()
+    var appCoordinator: AppCoordinator?
 
     func scene(
         _ scene: UIScene,
@@ -17,18 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
+        let window = UIWindow(windowScene: windowScene)
+        
         let splashViewController = SplashViewController()
         splashViewController.delegate = self
-        window?.rootViewController = splashViewController
-        window?.makeKeyAndVisible()
+        window.rootViewController = splashViewController
+        window.makeKeyAndVisible()
+        
+        appCoordinator = AppCoordinator(window: window)
+        
+        self.window = window
     }
 }
 
 extension SceneDelegate: SplashDelegate {
     func didFinish() {
-        navigationController.navigationBar.isHidden = true
-        navigationController.pushViewController(TabBarController(), animated: false)
-        window?.rootViewController = navigationController
+        appCoordinator?.start()
     }
 }
