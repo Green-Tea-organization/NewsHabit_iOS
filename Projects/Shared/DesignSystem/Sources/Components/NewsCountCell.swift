@@ -11,7 +11,7 @@ import SharedUtil
 import SnapKit
 
 public final class NewsCountCell: UICollectionViewCell, Reusable {
-    public override var isSelected: Bool {
+    private var selectFlag: Bool = false {
         didSet {
             updateAppearance()
         }
@@ -72,15 +72,15 @@ public final class NewsCountCell: UICollectionViewCell, Reusable {
     
     // MARK: - Configure
     
-    public func configure(with newsCount: NewsCount) {
-        countLabel.text = "\(newsCount.rawValue)개"
-        updateAppearance()
+    public func configure(with viewModel: NewsCountCellViewModel) {
+        countLabel.text = "\(viewModel.newsCount.rawValue)개"
+        selectFlag = viewModel.isSelected
     }
     
     private func updateAppearance() {
-        checkBoxImageView.image = isSelected ? Images.checkActive : Images.checkInactive
-        countLabel.textColor = isSelected ? Colors.primary : Colors.disabled
-        backgroundColor = isSelected ? Colors.secondary : Colors.background
-        layer.borderColor = (isSelected ? Colors.background : Colors.gray01).cgColor
+        checkBoxImageView.image = selectFlag ? Images.checkActive : Images.checkInactive
+        countLabel.textColor = selectFlag ? Colors.primary : Colors.disabled
+        backgroundColor = selectFlag ? Colors.secondary : Colors.background
+        layer.borderColor = (selectFlag ? Colors.background : Colors.gray01).cgColor
     }
 }

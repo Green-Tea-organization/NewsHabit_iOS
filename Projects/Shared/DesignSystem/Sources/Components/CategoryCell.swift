@@ -11,7 +11,7 @@ import SharedUtil
 import SnapKit
 
 public final class CategoryCell: UICollectionViewCell, Reusable {
-    public override var isSelected: Bool {
+    private var selectFlag: Bool = false{
         didSet {
             updateAppearance()
         }
@@ -58,15 +58,14 @@ public final class CategoryCell: UICollectionViewCell, Reusable {
     
     // MARK: - Configure
     
-    public func configure(with category: SharedUtil.Category) {
-        nameLabel.text = category.name
-        updateAppearance()
+    public func configure(with viewModel: CategoryCellViewModel) {
+        nameLabel.text = viewModel.category.name
+        selectFlag = viewModel.isSelected
     }
     
-    // TODO: 뷰모델 연결할 때 isSelected 로직 빼야함 (여러개 선택 가능해서) 뷰모델에 isSelected 변수 넣어둘 것
     private func updateAppearance() {
-        nameLabel.textColor = isSelected ? Colors.primary : Colors.disabled
-        backgroundColor = isSelected ? Colors.secondary : Colors.background
-        layer.borderColor = (isSelected ? Colors.background : Colors.gray01).cgColor
+        nameLabel.textColor = selectFlag ? Colors.primary : Colors.disabled
+        backgroundColor = selectFlag ? Colors.secondary : Colors.background
+        layer.borderColor = (selectFlag ? Colors.background : Colors.gray01).cgColor
     }
 }

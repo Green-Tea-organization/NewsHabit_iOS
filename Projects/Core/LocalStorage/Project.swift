@@ -51,7 +51,7 @@ let project = Project.makeModule(
     packages: [
         .remote(
             url: "https://github.com/realm/realm-swift",
-            requirement: .upToNextMajor(from: "10.25.0")
+            requirement: .upToNextMajor(from: "10.42.0")
         )
     ],
     targets: targets

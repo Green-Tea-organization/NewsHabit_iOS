@@ -21,7 +21,7 @@ public final class NameView: UIView {
         return label
     }()
     
-    let textFieldView = ValidatableTextField(placeholder: "이름", validator: NameValidator())
+    let textFieldView = ValidatableTextField(placeholder: "이름")
     
     let saveButton = SaveButton()
     

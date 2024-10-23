@@ -84,7 +84,7 @@ open class ViewController<View: UIView>: UIViewController, UIGestureRecognizerDe
     
     private func setupViewController() {
         view.backgroundColor = Colors.background
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
